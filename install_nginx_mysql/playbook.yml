@@ -1,5 +1,5 @@
 - name: install and configure Nginx
-  hosts: web
+  hosts: jenkins_slave
   become: true
   vars_files:
     - vars/default.yml
@@ -10,20 +10,14 @@
         update_cache: yes
         state: latest
         force_apt_get: yes
-      loop: 
-        - 'aptitude'
+      loop: [ 'aptitude' ]
 
     - name: Install LEMP Packages
       apt: 
         name: {{ item }} 
         update_cache: yes 
         state: latest
-      loop: 
-        - 'nginx'
-        - 'mysql-server'
-        - 'python3-pymysql'
-        - 'php-fpm'
-        - 'php-mysql'
+      loop: [ 'nginx', 'mysql-server', 'python3-pymysql', 'php-fpm', 'php-mysql' ]
     
     # Nginx Configuration
     - name: Sets Nginx conf file
