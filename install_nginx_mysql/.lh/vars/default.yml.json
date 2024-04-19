@@ -1,0 +1,22 @@
+{
+    "sourceFile": "vars/default.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1713559828828,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713559839584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,4 @@\n mysql_root_password: \"mysql_root_password\"\n http_host: \"_\"\n-http_conf: \"\"\n+http_conf: \"my_ansible\"\n http_port: \"80\"\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1713559828828,
+            "name": "Commit-0",
+            "content": "mysql_root_password: \"mysql_root_password\"\nhttp_host: \"_\"\nhttp_conf: \"\"\nhttp_port: \"80\""
+        }
+    ]
+}
