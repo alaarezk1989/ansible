@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 26,
             "patches": [
                 {
                     "date": 1713559811312,
@@ -28,6 +28,90 @@
                 {
                     "date": 1713564016099,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,14 +89,16 @@\n       mysql_db: \n         name: test \n         state: absent\n         login_user: root\n+        login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create a new database with name 'ecomdb'\n       mysql_db:\n         name: ecomdb\n         state: present\n         login_user: root\n+        login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         name: ecomuser\n"
+                },
+                {
+                    "date": 1713564452336,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n         name: ecomuser\n         host_all: yes\n         password: ecompassword\n         priv: '*.*:ALL'\n-        state: present\n+        state: import\n         login_user: root\n \n     - name: Copy database dump file\n       copy:\n"
+                },
+                {
+                    "date": 1713564467106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,8 +106,9 @@\n         password: ecompassword\n         priv: '*.*:ALL'\n         state: import\n         login_user: root\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n"
+                },
+                {
+                    "date": 1713564475709,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -100,15 +100,15 @@\n         login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n+        login_user: root\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: ecomuser\n         host_all: yes\n         password: ecompassword\n         priv: '*.*:ALL'\n         state: import\n-        login_user: root\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n"
+                },
+                {
+                    "date": 1713564482522,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,9 +106,8 @@\n         name: ecomuser\n         host_all: yes\n         password: ecompassword\n         priv: '*.*:ALL'\n-        state: import\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n"
+                },
+                {
+                    "date": 1713564493406,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -100,14 +100,14 @@\n         login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n-        login_user: root\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: ecomuser\n         host_all: yes\n         password: ecompassword\n         priv: '*.*:ALL'\n+        state: import\n+        login_user: root\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n"
+                },
+                {
+                    "date": 1713564513250,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,15 +104,15 @@\n         name: ecomuser\n         host_all: yes\n         password: ecompassword\n         priv: '*.*:ALL'\n-        state: import\n+        state: present\n         login_user: root\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n-        dest: /tmp\n+        dest: /\n \n     - name: Restore database\n       mysql_db:\n         name: ecomdb\n"
+                },
+                {
+                    "date": 1713564521445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,9 +110,9 @@\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n-        dest: /\n+        dest: /home/ubuntu\n \n     - name: Restore database\n       mysql_db:\n         name: ecomdb\n"
+                },
+                {
+                    "date": 1713564547777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,9 +110,9 @@\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n-        dest: /home/ubuntu\n+        dest: /home/ubuntu/\n \n     - name: Restore database\n       mysql_db:\n         name: ecomdb\n"
+                },
+                {
+                    "date": 1713564554067,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,9 +110,9 @@\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n-        dest: /home/ubuntu/\n+        dest: /home/ubuntu/db\n \n     - name: Restore database\n       mysql_db:\n         name: ecomdb\n"
+                },
+                {
+                    "date": 1713564571431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,12 +110,13 @@\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n-        dest: /home/ubuntu/db\n+        dest: /home/ubuntu/dbsql.sql\n \n     - name: Restore database\n       mysql_db:\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: ecomdb\n         state: import\n         target: /tmp/dbsql.sql\n         login_user: root\n"
+                },
+                {
+                    "date": 1713564601743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -118,6 +118,5 @@\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: ecomdb\n         state: import\n         target: /tmp/dbsql.sql\n-        login_user: root\n \n"
+                },
+                {
+                    "date": 1713564612914,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -115,8 +115,9 @@\n \n     - name: Restore database\n       mysql_db:\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n+        login_user: root\n         name: ecomdb\n         state: import\n-        target: /tmp/dbsql.sql\n+        target: /home/ubuntu/dbsql.sql\n \n"
+                },
+                {
+                    "date": 1713564633907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -119,5 +119,6 @@\n         login_user: root\n         name: ecomdb\n         state: import\n         target: /home/ubuntu/dbsql.sql\n+        forc\n \n"
+                },
+                {
+                    "date": 1713564678860,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -100,8 +100,9 @@\n         login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: ecomuser\n         host_all: yes\n         password: ecompassword\n         priv: '*.*:ALL'\n@@ -119,6 +120,6 @@\n         login_user: root\n         name: ecomdb\n         state: import\n         target: /home/ubuntu/dbsql.sql\n-        forc\n+        force: true\n \n"
+                },
+                {
+                    "date": 1713564685162,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,9 +106,8 @@\n         host_all: yes\n         password: ecompassword\n         priv: '*.*:ALL'\n         state: present\n-        login_user: root\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n"
+                },
+                {
+                    "date": 1713564700128,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,11 +101,11 @@\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n+        login_user: root\n         name: ecomuser\n         host_all: yes\n-        password: ecompassword\n         priv: '*.*:ALL'\n         state: present\n \n     - name: Copy database dump file\n"
+                },
+                {
+                    "date": 1713564714341,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,10 @@\n       mysql_user:\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n         login_user: root\n         name: ecomuser\n-        host_all: yes\n+        password: ecompassword\n+        host: yes\n         priv: '*.*:ALL'\n         state: present\n \n     - name: Copy database dump file\n"
+                },
+                {
+                    "date": 1713564720187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n         login_user: root\n         name: ecomuser\n         password: ecompassword\n-        host: yes\n+        host: localhost\n         priv: '*.*:ALL'\n         state: present\n \n     - name: Copy database dump file\n"
+                },
+                {
+                    "date": 1713564780251,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n       mysql_db:\n         name: ecomdb\n         state: present\n         login_user: root\n-        login_password: \"{{ mysql_root_password }}\"\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n"
+                },
+                {
+                    "date": 1713564831001,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,8 +78,9 @@\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: ''\n         host_all: yes\n         state: absent\n         login_user: root\n"
+                },
+                {
+                    "date": 1713564848183,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,12 +83,13 @@\n         name: ''\n         host_all: yes\n         state: absent\n         login_user: root\n-        login_password: \"{{ mysql_root_password }}\"\n+        # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n       mysql_db: \n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: test \n         state: absent\n         login_user: root\n         login_password: \"{{ mysql_root_password }}\"\n"
                 }
             ],
             "date": 1713559811312,

@@ -79,44 +79,49 @@
 
     - name: Removes all anonymous user accounts
       mysql_user:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
         name: ''
         host_all: yes
         state: absent
         login_user: root
-        login_password: "{{ mysql_root_password }}"
+        # login_password: "{{ mysql_root_password }}"
 
     - name: Removes the MySQL test database
       mysql_db: 
+        login_unix_socket: /var/run/mysqld/mysqld.sock
         name: test 
         state: absent
         login_user: root
-        login_password: "{{ mysql_root_password }}"
+        # login_password: "{{ mysql_root_password }}"
 
     - name: Create a new database with name 'ecomdb'
       mysql_db:
         name: ecomdb
         state: present
         login_user: root
-        login_password: "{{ mysql_root_password }}"
+        login_unix_socket: /var/run/mysqld/mysqld.sock
 
     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges
       mysql_user:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_user: root
         name: ecomuser
-        host_all: yes
         password: ecompassword
+        host: localhost
         priv: '*.*:ALL'
         state: present
-        login_user: root
 
     - name: Copy database dump file
       copy:
         src: dbsql.sql
-        dest: /tmp
+        dest: /home/ubuntu/dbsql.sql
 
     - name: Restore database
       mysql_db:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_user: root
         name: ecomdb
         state: import
-        target: /tmp/dbsql.sql
-        login_user: root
+        target: /home/ubuntu/dbsql.sql
+        force: true
 
