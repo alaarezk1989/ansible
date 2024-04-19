@@ -1,0 +1,18 @@
+{
+    "sourceFile": "inv_file",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1713563255978,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1713563255978,
+            "name": "Commit-0",
+            "content": "localhost ansible_connection=local\n\njenkins_slave ansible_connection=ssh  ansible_host=3.149.255.136\n"
+        }
+    ]
+}
