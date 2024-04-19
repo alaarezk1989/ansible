@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 39,
+            "activePatchIndex": 41,
             "patches": [
                 {
                     "date": 1713559811312,
@@ -164,6 +164,14 @@
                 {
                     "date": 1713566231075,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,13 +5,13 @@\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n-    - name: Sets the root password \n-      mysql_user: \n-        name: root \n-        password: \"{{ mysql_root_password }}\"\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n+    # - name: Sets the root password \n+    #   mysql_user: \n+    #     name: root \n+    #     password: \"{{ mysql_root_password }}\"\n+    #     login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n         name: ''\n"
+                },
+                {
+                    "date": 1713566267697,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n       mysql_user:\n         name: ''\n         host_all: yes\n         state: absent\n-        # login_unix_socket: /var/run/mysqld/mysqld.sock\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n         # login_user: root\n         # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n"
+                },
+                {
+                    "date": 1713566320398,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         name: ''\n         host_all: yes\n         state: absent\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n-        # login_user: root\n+        login_user: root\n         # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n       mysql_db: \n"
                 }
             ],
             "date": 1713559811312,
