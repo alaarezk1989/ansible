@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1713559811312,
@@ -20,6 +20,14 @@
                 {
                     "date": 1713563763260,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,10 @@\n \n \n \n - name: install and configure Mysql\n-jenkins_slave  become: true\n+  hosts: jenkins_slave\n+  become: true\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n@@ -93,9 +94,8 @@\n       mysql_db:\n         name: ecomdb\n         state: present\n         login_user: root\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         name: ecomuser\n"
+                },
+                {
+                    "date": 1713563894957,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,8 +82,9 @@\n         name: ''\n         host_all: yes\n         state: absent\n         login_user: root\n+        login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n       mysql_db: \n         name: test \n"
+                },
+                {
+                    "date": 1713564016099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,14 +89,16 @@\n       mysql_db: \n         name: test \n         state: absent\n         login_user: root\n+        login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create a new database with name 'ecomdb'\n       mysql_db:\n         name: ecomdb\n         state: present\n         login_user: root\n+        login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         name: ecomuser\n"
                 }
             ],
             "date": 1713559811312,
