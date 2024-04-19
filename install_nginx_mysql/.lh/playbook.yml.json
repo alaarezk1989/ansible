@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 26,
+            "activePatchIndex": 27,
             "patches": [
                 {
                     "date": 1713559811312,
@@ -112,6 +112,10 @@
                 {
                     "date": 1713564848183,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,12 +83,13 @@\n         name: ''\n         host_all: yes\n         state: absent\n         login_user: root\n-        login_password: \"{{ mysql_root_password }}\"\n+        # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n       mysql_db: \n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: test \n         state: absent\n         login_user: root\n         login_password: \"{{ mysql_root_password }}\"\n"
+                },
+                {
+                    "date": 1713565335494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -70,13 +70,13 @@\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n-    - name: Sets the root password \n-      mysql_user: \n-        name: root \n-        password: \"{{ mysql_root_password }}\"\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n+    # - name: Sets the root password \n+    #   mysql_user: \n+    #     name: root \n+    #     password: \"{{ mysql_root_password }}\"\n+    #     login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n@@ -91,9 +91,9 @@\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n         name: test \n         state: absent\n         login_user: root\n-        login_password: \"{{ mysql_root_password }}\"\n+        # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Create a new database with name 'ecomdb'\n       mysql_db:\n         name: ecomdb\n"
                 }
             ],
             "date": 1713559811312,
