@@ -1,4 +1,8 @@
 mysql_root_password: "mysqlRootP@ssw0rd"
+mysql_db: "ecomdb"
+mysql_user: "ecomuser"
+mysql_password: "ecompassword"
+
 http_host: "_"
 http_conf: "my_ansible_site"
 http_port: "80"

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 41,
+            "activePatchIndex": 50,
             "patches": [
                 {
                     "date": 1713559811312,
@@ -172,6 +172,42 @@
                 {
                     "date": 1713566320398,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         name: ''\n         host_all: yes\n         state: absent\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n-        # login_user: root\n+        login_user: root\n         # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n       mysql_db: \n"
+                },
+                {
+                    "date": 1713566782027,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,21 +5,21 @@\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n-    # - name: Sets the root password \n-    #   mysql_user: \n-    #     name: root \n-    #     password: \"{{ mysql_root_password }}\"\n-    #     login_unix_socket: /var/run/mysqld/mysqld.sock\n+    - name: Sets the root password \n+      mysql_user: \n+        name: root \n+        password: \"{{ mysql_root_password }}\"\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n         name: ''\n         host_all: yes\n         state: absent\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n-        login_user: root\n+        # login_unix_socket: /var/run/mysqld/mysqld.sock\n+        # login_user: root\n         # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n       mysql_db: \n"
+                },
+                {
+                    "date": 1713566787165,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,13 +5,13 @@\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n-    - name: Sets the root password \n-      mysql_user: \n-        name: root \n+    mysql_user:\n+        name: root\n         password: \"{{ mysql_root_password }}\"\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n+      tags: [ mysql, mysql-root ]\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n         name: ''\n"
+                },
+                {
+                    "date": 1713566799043,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,10 @@\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n-    mysql_user:\n+    - name: Sets the root password \n+      mysql_user:\n         name: root\n         password: \"{{ mysql_root_password }}\"\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n       tags: [ mysql, mysql-root ]\n"
+                },
+                {
+                    "date": 1713566864047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,11 +17,11 @@\n       mysql_user:\n         name: ''\n         host_all: yes\n         state: absent\n-        # login_unix_socket: /var/run/mysqld/mysqld.sock\n-        # login_user: root\n-        # login_password: \"{{ mysql_root_password }}\"\n+        login_user: root\n+        login_password: \"{{ mysql_root_password }}\"\n+      tags: [ mysql ]\n \n     - name: Removes the MySQL test database\n       mysql_db: \n         login_unix_socket: /var/run/mysqld/mysqld.sock\n"
+                },
+                {
+                    "date": 1713566869704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,11 +17,11 @@\n       mysql_user:\n         name: ''\n         host_all: yes\n         state: absent\n-        login_user: root\n-        login_password: \"{{ mysql_root_password }}\"\n-      tags: [ mysql ]\n+        # login_unix_socket: /var/run/mysqld/mysqld.sock\n+        # login_user: root\n+        # login_password: \"{{ mysql_root_password }}\"\n \n     - name: Removes the MySQL test database\n       mysql_db: \n         login_unix_socket: /var/run/mysqld/mysqld.sock\n"
+                },
+                {
+                    "date": 1713566935613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,19 +17,19 @@\n       mysql_user:\n         name: ''\n         host_all: yes\n         state: absent\n-        # login_unix_socket: /var/run/mysqld/mysqld.sock\n-        # login_user: root\n-        # login_password: \"{{ mysql_root_password }}\"\n+        login_user: root\n+        login_password: \"{{ mysql_root_password }}\"\n+      tags: [ mysql ]\n \n     - name: Removes the MySQL test database\n-      mysql_db: \n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n-        name: test \n+      mysql_db:\n+        name: test\n         state: absent\n         login_user: root\n-        # login_password: \"{{ mysql_root_password }}\"\n+        login_password: \"{{ mysql_root_password }}\"\n+      tags: [ mysql ]\n \n     - name: Create a new database with name 'ecomdb'\n       mysql_db:\n         name: ecomdb\n"
+                },
+                {
+                    "date": 1713566966475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,12 +31,13 @@\n       tags: [ mysql ]\n \n     - name: Create a new database with name 'ecomdb'\n       mysql_db:\n-        name: ecomdb\n+        name: \"{{ mysql_db }}\"\n         state: present\n         login_user: root\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n+        login_password: \"{{ mysql_root_password }}\"\n+      tags: [ mysql ]\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n"
+                },
+                {
+                    "date": 1713567127937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,16 +38,16 @@\n         login_password: \"{{ mysql_root_password }}\"\n       tags: [ mysql ]\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n-      mysql_user:\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n+     mysql_user:\n+        name: \"{{ mysql_user }}\"\n+        password: \"{{ mysql_password }}\"\n+        priv: \"{{ mysql_db }}.*:ALL\"\n+        state: present\n         login_user: root\n-        name: ecomuser\n-        password: ecompassword\n-        host: localhost\n-        priv: '*.*:ALL'\n-        state: present\n+        login_password: \"{{ mysql_root_password }}\"\n+      tags: [ mysql ]\n \n     - name: Copy database dump file\n       copy:\n         src: dbsql.sql\n"
+                },
+                {
+                    "date": 1713567134990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n         login_password: \"{{ mysql_root_password }}\"\n       tags: [ mysql ]\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n-     mysql_user:\n+      mysql_user:\n         name: \"{{ mysql_user }}\"\n         password: \"{{ mysql_password }}\"\n         priv: \"{{ mysql_db }}.*:ALL\"\n         state: present\n"
                 }
             ],
             "date": 1713559811312,
