@@ -3,11 +3,23 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1713559811312,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713563607358,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,8 +94,9 @@\n       mysql_db:\n         name: ecomdb\n         state: present\n         login_user: root\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         name: ecomuser\n"
+                },
+                {
+                    "date": 1713563732648,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,10 +64,9 @@\n \n \n \n - name: install and configure Mysql\n-  hosts: web\n-  become: true\n+jenkins_slave  become: true\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n"
+                },
+                {
+                    "date": 1713563763260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,10 @@\n \n \n \n - name: install and configure Mysql\n-jenkins_slave  become: true\n+  hosts: jenkins_slave\n+  become: true\n   vars_files:\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n@@ -93,9 +94,8 @@\n       mysql_db:\n         name: ecomdb\n         state: present\n         login_user: root\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n       mysql_user:\n         name: ecomuser\n"
                 }
             ],
             "date": 1713559811312,

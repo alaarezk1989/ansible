@@ -65,7 +65,7 @@
 
 
 - name: install and configure Mysql
-  hosts: web
+  hosts: jenkins_slave
   become: true
   vars_files:
     - vars/default.yml
