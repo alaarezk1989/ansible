@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 50,
+            "activePatchIndex": 56,
             "patches": [
                 {
                     "date": 1713559811312,
@@ -208,6 +208,30 @@
                 {
                     "date": 1713567134990,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n         login_password: \"{{ mysql_root_password }}\"\n       tags: [ mysql ]\n \n     - name: Create database user with name 'ecomuser' and password 'ecompassword' with all database privileges\n-     mysql_user:\n+      mysql_user:\n         name: \"{{ mysql_user }}\"\n         password: \"{{ mysql_password }}\"\n         priv: \"{{ mysql_db }}.*:ALL\"\n         state: present\n"
+                },
+                {
+                    "date": 1713567603469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n         name: root\n         password: \"{{ mysql_root_password }}\"\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n       tags: [ mysql, mysql-root ]\n+      \n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n         name: ''\n"
+                },
+                {
+                    "date": 1713567611139,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,18 @@\n         name: root\n         password: \"{{ mysql_root_password }}\"\n         login_unix_socket: /var/run/mysqld/mysqld.sock\n       tags: [ mysql, mysql-root ]\n-      \n+      mysql_user:\n+        config_file: /etc/mysql/my.cnf\n+        login_host:localhost\n+        login_password: \"\"\n+        login_port: 3306\n+        login_unix_socket: '/var/run/mysqld/mysqld.sock'\n+        login_user: root\n+        name: root\n+        password: \"{{ mysql.admin.password }}\"\n+        state: present\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n         name: ''\n"
+                },
+                {
+                    "date": 1713567632305,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         login_port: 3306\n         login_unix_socket: '/var/run/mysqld/mysqld.sock'\n         login_user: root\n         name: root\n-        password: \"{{ mysql.admin.password }}\"\n+        password: \"{{ mmysql_root_password }}\"\n         state: present\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n"
+                },
+                {
+                    "date": 1713567653635,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,22 +6,18 @@\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n     - name: Sets the root password \n+      \n       mysql_user:\n-        name: root\n-        password: \"{{ mysql_root_password }}\"\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n-      tags: [ mysql, mysql-root ]\n-      mysql_user:\n         config_file: /etc/mysql/my.cnf\n         login_host:localhost\n         login_password: \"\"\n         login_port: 3306\n         login_unix_socket: '/var/run/mysqld/mysqld.sock'\n         login_user: root\n         name: root\n-        password: \"{{ mmysql_root_password }}\"\n+        password: \"{{ mysql_root_password }}\"\n         state: present\n \n     - name: Removes all anonymous user accounts\n       mysql_user:\n"
+                },
+                {
+                    "date": 1713567658826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,12 +6,16 @@\n     - vars/default.yml\n   tasks:\n   # MySQL Configuration\n     - name: Sets the root password \n-      \n       mysql_user:\n+        name: root\n+        password: \"{{ mysql_root_password }}\"\n+        login_unix_socket: /var/run/mysqld/mysqld.sock\n+      tags: [ mysql, mysql-root ]\n+      mysql_user:\n         config_file: /etc/mysql/my.cnf\n-        login_host:localhost\n+        login_host: localhost\n         login_password: \"\"\n         login_port: 3306\n         login_unix_socket: '/var/run/mysqld/mysqld.sock'\n         login_user: root\n"
+                },
+                {
+                    "date": 1713567670070,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,13 +7,8 @@\n   tasks:\n   # MySQL Configuration\n     - name: Sets the root password \n       mysql_user:\n-        name: root\n-        password: \"{{ mysql_root_password }}\"\n-        login_unix_socket: /var/run/mysqld/mysqld.sock\n-      tags: [ mysql, mysql-root ]\n-      mysql_user:\n         config_file: /etc/mysql/my.cnf\n         login_host: localhost\n         login_password: \"\"\n         login_port: 3306\n"
                 }
             ],
             "date": 1713559811312,
