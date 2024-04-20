@@ -85,15 +85,11 @@
     - name: Sets the root password 
       mysql_user: 
         name: root
-        host: "{{ item }}"
+        host: "localhost"
         check_implicit_admin: yes
-        login_user: "{{ mysql_user }}"
-        login_password: "{{ mysql_old_root_password }}"
+        # login_user: "{{ mysql_user }}"
+        # login_password: "{{ mysql_old_root_password }}"
         state: present
-      with_items:
-        - 127.0.0.1
-        - ::1
-        - localhost
 
     - name: Removes all anonymous user accounts
       mysql_user:
