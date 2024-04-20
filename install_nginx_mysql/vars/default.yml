@@ -1,5 +1,5 @@
-mysql_old_root_password: mysqlRootP@ssw0rd
-mysql_root_password: mysqlRootP@ssw0rd2
+mysql_old_root_password: mysql_root_password
+mysql_root_password: mysql_root_password
 
 mysql_db: "ecomdb"
 mysql_user: "ecomuser"
