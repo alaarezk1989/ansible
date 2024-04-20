@@ -78,6 +78,7 @@
         src: my.cnf.j2 
         dest: /root/.my.cnf 
         owner: root 
+        group: root
         mode: 0600
       notify: Restart the MySQL service
 
@@ -90,6 +91,10 @@
         login_user: "{{ mysql_user }}"
         login_password: "{{ mysql_old_root_password }}"
         state: present
+      with_items:
+        - 127.0.0.1
+        - ::1
+        - localhost
 
     - name: Removes all anonymous user accounts
       mysql_user:
