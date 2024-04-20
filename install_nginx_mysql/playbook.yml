@@ -75,11 +75,11 @@
 
     - name: mysql query
       mysql_query:
-        login_host: "{{ cmdb_db_host }}"
-        login_user: "{{ cmdb_db_username }}"
-        login_password: "{{ cmdb_db_password }}"
+        login_host: localhost
+        login_user: root
+        # login_password: "{{ cmdb_db_password }}"
         db: "{{ cmdb_db_name }}"
-        query: "SELECT id FROM servers WHERE server_private_ip_address = \"{{ inventory_hostname }}\""
+        query: "SELECT user,authentication_string,plugin,host FROM mysql.user;"
       register: query_output
     # - name: copy .my.cnf file with root password credentials
     #   template: 
