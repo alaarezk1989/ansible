@@ -77,7 +77,7 @@
       mysql_query:
         login_host: localhost
         login_user: root
-        # login_password: "{{ cmdb_db_password }}"
+        login_password: "{{ mysql_old_root_password }}"
         # db: "{{ cmdb_db_name }}"
         query: "SELECT user,authentication_string,plugin,host FROM mysql.user;"
       register: query_output
