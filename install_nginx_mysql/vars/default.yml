@@ -1,4 +1,4 @@
-mysql_root_password: "mysqlRootP@ssw0rd"
+mysql_root_password: mysqlRootP@ssw0rd
 mysql_db: "ecomdb"
 mysql_user: "ecomuser"
 mysql_password: "ecompassword"
